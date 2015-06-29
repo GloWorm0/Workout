@@ -14,6 +14,9 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        WorkoutDetailFragment frag = (WorkoutDetailFragment)getFragmentManager().findFragmentById(R.id.detail_frag);
+        frag.setWorkout(1);
     }
 
     @Override
