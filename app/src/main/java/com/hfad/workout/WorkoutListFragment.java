@@ -1,6 +1,7 @@
 package com.hfad.workout;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.ListFragment;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 
 /**
@@ -15,7 +17,12 @@ import android.widget.ArrayAdapter;
  */
 public class WorkoutListFragment extends ListFragment
 {
+    static interface WorkoutListListener
+    {
+        void itemClicked(long id);
+    };
 
+    private WorkoutListListener listener;
 
     public WorkoutListFragment()
     {
@@ -40,5 +47,19 @@ public class WorkoutListFragment extends ListFragment
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    @Override
+    public void onAttach(Activity activity)
+    {
+        super.onAttach(activity);
+        this.listener = (WorkoutListListener)activity;
+    }
 
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id)
+    {
+        if(listener != null)
+        {
+            listener.itemClicked(id);
+        }
+    }
 }
